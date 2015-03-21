@@ -11,6 +11,7 @@
 typedef NS_ENUM(NSUInteger, MaskShapeType) {
     MaskShapeTypeCircle,
     MaskShapeTypeRectangle,
+    MaskShapeTypeTriangle,
     MaskShapeTypeStar,
     MaskShapeTypeTransparentImage
 };

@@ -15,6 +15,8 @@
 @property (assign) CGFloat animationRate;
 @property (strong) NSTimer* imageMaskingOperationTimer;
 @property (assign) CGFloat maximumMaskSize;
+@property (assign) CGFloat viewMidX;
+@property (assign) CGFloat viewMidY;
 @end
 
 
@@ -23,6 +25,8 @@
 -(instancetype)initWithInputView:(UIView*)inputView andNumberOfFramesPerSecond:(NSInteger)numberOfFrame andAnimationType:(MaskShapeType)animationType {
     if(self = [super init]) {
         self.viewToMask = inputView;
+        self.viewMidX = self.viewToMask.frame.size.width/2;
+        self.viewMidY = self.viewToMask.frame.size.height/2;
         self.animationRate = (CGFloat)(1.0/numberOfFrame);
         self.animationType = animationType;
     }
@@ -34,7 +38,13 @@
     self.partialCompletionCallback = partialCompletion;
     self.completionCallback = completion;
     
-    self.maximumMaskSize = [self calculateMaximumMaskDimension];
+    if(self.animationType == MaskShapeTypeTriangle) {
+        CGFloat maximumViewDimension = MAX(self.viewToMask.frame.size.width, self.viewToMask.frame.size.height);
+        self.maximumMaskSize = (maximumViewDimension/2) + maximumViewDimension * 0.866;
+    } else {
+        self.maximumMaskSize = [self calculateMaximumMaskDimension];
+    }
+    
     self.maskSize = 0.0;
     self.viewToMask.layer.mask = [self getShapeFromRect:CGRectMake((self.viewToMask.frame.size.width - self.maskSize)/2, (self.viewToMask.frame.size.height - self.maskSize)/2, self.maskSize, self.maskSize)];
     self.imageMaskingOperationTimer = [NSTimer timerWithTimeInterval:self.animationRate target:self selector:@selector(updateImageMaskSize) userInfo:nil repeats:YES];
@@ -48,10 +58,21 @@
         maskingPath = CGPathCreateWithEllipseInRect(rectPathForMask, nil);
     } else if(self.animationType == MaskShapeTypeRectangle){
         maskingPath = CGPathCreateWithRect(rectPathForMask, nil);
+    } else if (self.animationType == MaskShapeTypeTriangle) {
+        maskingPath = [self getTriangleShapeWithSize:rectPathForMask.size.height];
     }
     shape.path = maskingPath;
     CGPathRelease(maskingPath);
     return shape;
+}
+
+-(CGMutablePathRef)getTriangleShapeWithSize:(CGFloat)shapeSize {
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path, nil, self.viewMidX, self.viewMidY - shapeSize); //start from here
+    CGPathAddLineToPoint(path, nil, self.viewMidX - shapeSize, self.viewMidY + shapeSize);
+    CGPathAddLineToPoint(path, nil, self.viewMidX + shapeSize, self.viewMidY + shapeSize);
+    CGPathAddLineToPoint(path, nil, self.viewMidX, self.viewMidY - shapeSize);
+    return path;
 }
 
 -(CALayer*)getCustomMaskLayerFromRect:(CGRect)rectPathToMask {
@@ -61,9 +82,6 @@
     maskLayer.contents = (__bridge id) maskImage.CGImage;
     return maskLayer;
 }
-
-
-
 
 -(void)updateImageMaskSize {
     

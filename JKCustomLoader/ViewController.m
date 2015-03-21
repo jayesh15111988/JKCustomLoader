@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    JKCustomLoader* loader = [[JKCustomLoader alloc] initWithInputView:self.testImageView andNumberOfFramesPerSecond:60 andAnimationType:MaskShapeTypeCircle];
+    JKCustomLoader* loader = [[JKCustomLoader alloc] initWithInputView:self.testImageView andNumberOfFramesPerSecond:60 andAnimationType:MaskShapeTypeTriangle];
     [loader loadViewWithPartialCompletionBlock:^(CGFloat partialCompletionPercentage) {
         
     } andCompletionBlock:^{
