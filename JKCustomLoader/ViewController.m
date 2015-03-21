@@ -18,13 +18,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    JKCustomLoader* loader = [[JKCustomLoader alloc] initWithInputView:self.testImageView andAnimationType:MaskShapeTypeTriangle];
+    JKCustomLoader* loader = [[JKCustomLoader alloc] initWithInputView:self.testImageView andAnimationType:MaskShapeTypeAlphaImage];
     loader.numberOfSidesForStar = 6;
     loader.pointinessForStarCorners = 10;
+    loader.maskImage = [UIImage imageNamed:@"donald.png"];
     [loader loadViewWithPartialCompletionBlock:^(CGFloat partialCompletionPercentage) {
-        
+        NSLog(@"Percentage Completed %f", partialCompletionPercentage);
     } andCompletionBlock:^{
-        
+        NSLog(@"Image Loading Completed");
     }];
 }
 

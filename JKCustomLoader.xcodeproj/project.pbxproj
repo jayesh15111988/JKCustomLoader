@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		385FA8981ABE373700E884DA /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 385FA8971ABE373700E884DA /* twitter.png */; };
 		38D492DE1ABD2074004A9B17 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D492DD1ABD2074004A9B17 /* main.m */; };
 		38D492E11ABD2074004A9B17 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D492E01ABD2074004A9B17 /* AppDelegate.m */; };
 		38D492E71ABD2074004A9B17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38D492E51ABD2074004A9B17 /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		385FA8971ABE373700E884DA /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		38D492D81ABD2074004A9B17 /* JKCustomLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JKCustomLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38D492DC1ABD2074004A9B17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38D492DD1ABD2074004A9B17 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			children = (
 				38D492DF1ABD2074004A9B17 /* AppDelegate.h */,
 				38D492E01ABD2074004A9B17 /* AppDelegate.m */,
+				385FA8971ABE373700E884DA /* twitter.png */,
 				38D492E51ABD2074004A9B17 /* Main.storyboard */,
 				38D493091ABD2B6B004A9B17 /* donald.png */,
 				38D493071ABD2802004A9B17 /* rf.jpg */,
@@ -218,6 +221,7 @@
 				38D492E71ABD2074004A9B17 /* Main.storyboard in Resources */,
 				38D493081ABD2802004A9B17 /* rf.jpg in Resources */,
 				38D492EC1ABD2074004A9B17 /* LaunchScreen.xib in Resources */,
+				385FA8981ABE373700E884DA /* twitter.png in Resources */,
 				38D492E91ABD2074004A9B17 /* Images.xcassets in Resources */,
 				38D4930A1ABD2B6B004A9B17 /* donald.png in Resources */,
 			);
@@ -434,6 +438,7 @@
 				38D492FD1ABD2074004A9B17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		38D492FE1ABD2074004A9B17 /* Build configuration list for PBXNativeTarget "JKCustomLoaderTests" */ = {
 			isa = XCConfigurationList;
@@ -442,6 +447,7 @@
 				38D493001ABD2074004A9B17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

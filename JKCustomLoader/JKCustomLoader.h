@@ -13,7 +13,7 @@ typedef NS_ENUM(NSUInteger, MaskShapeType) {
     MaskShapeTypeRectangle,
     MaskShapeTypeTriangle,
     MaskShapeTypeStar,
-    MaskShapeTypeTransparentImage
+    MaskShapeTypeAlphaImage
 };
 
 @interface JKCustomLoader:UIView
@@ -21,6 +21,7 @@ typedef NS_ENUM(NSUInteger, MaskShapeType) {
 
 -(void)loadViewWithPartialCompletionBlock:(void (^)(CGFloat partialCompletionPercentage))partialCompletion andCompletionBlock:(void (^)())completion;
 
+@property (strong) UIImage* maskImage;
 @property (assign) CGFloat numberOfSidesForStar;
 @property (assign) CGFloat pointinessForStarCorners;
 @property (assign) CGFloat numberOfFramesPerSecond;

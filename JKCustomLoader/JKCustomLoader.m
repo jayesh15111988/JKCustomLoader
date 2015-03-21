@@ -9,6 +9,8 @@
 #import "JKCustomLoader.h"
 #import "JKBezierStarDrawer.h"
 
+#define MAXIMUM_DIMENSION_LIMIT_INCREMENT 3
+
 @interface JKCustomLoader ()
 
 @property (strong) UIView* viewToMask;
@@ -46,7 +48,7 @@ typedef void (^CompletionBlock)();
 }
 
 -(void)loadViewWithPartialCompletionBlock:(void (^)(CGFloat partialCompletionPercentage))partialCompletion andCompletionBlock:(void (^)())completion {
-
+    
     self.animationRate = (CGFloat)(1.0/self.numberOfFramesPerSecond);
     self.partialCompletionCallback = partialCompletion;
     self.completionCallback = completion;
@@ -55,8 +57,13 @@ typedef void (^CompletionBlock)();
         self.maximumMaskSize = (maximumViewDimension/2) + maximumViewDimension * 0.866;
     } else if(self.animationType == MaskShapeTypeStar) {
         self.maximumMaskSize = [self calculateMaximumMaskDimension]*(3/2);
-    } else {
+    } else if(self.animationType == MaskShapeTypeAlphaImage) {
+        self.maximumMaskSize = MAXIMUM_DIMENSION_LIMIT_INCREMENT * maximumViewDimension;
+        NSAssert(self.maskImage, @"Masking image cannot be nil when MaskShapeTypeAlphaImage animation mode is selected");
+    } else if(self.animationType == MaskShapeTypeCircle) {
         self.maximumMaskSize = [self calculateMaximumMaskDimension];
+    } else if (self.animationType == MaskShapeTypeRectangle) {
+        self.maximumMaskSize = maximumViewDimension;
     }
     
     self.maskSize = 0.0;
@@ -79,6 +86,8 @@ typedef void (^CompletionBlock)();
         maskingPath = CGPathCreateWithRect(rectPathForMask, nil);
     } else if (self.animationType == MaskShapeTypeTriangle) {
         maskingPath = [self getTriangleShapeWithSize:rectPathForMask.size.height];
+    } else if (self.animationType == MaskShapeTypeAlphaImage) {
+        return [self getCustomMaskLayerFromRect:rectPathForMask];
     }
     shape.path = maskingPath;
     CGPathRelease(maskingPath);
@@ -94,18 +103,17 @@ typedef void (^CompletionBlock)();
     return path;
 }
 
--(CALayer*)getCustomMaskLayerFromRect:(CGRect)rectPathToMask {
-    CALayer* maskLayer = [CALayer layer];
+-(CAShapeLayer*)getCustomMaskLayerFromRect:(CGRect)rectPathToMask {
+    CAShapeLayer* maskLayer = [CAShapeLayer layer];
     maskLayer.frame = rectPathToMask;
-    UIImage* maskImage = [UIImage imageNamed:@"donald.png"];
-    maskLayer.contents = (__bridge id) maskImage.CGImage;
+    maskLayer.contents = (__bridge id) self.maskImage.CGImage;
     return maskLayer;
 }
 
 -(void)updateImageMaskSize {
     
     self.viewToMask.layer.mask = [self getShapeFromRect:CGRectMake((self.viewToMask.frame.size.width - self.maskSize)/2, (self.viewToMask.frame.size.height - self.maskSize)/2, self.maskSize, self.maskSize)];
-    self.maskSize += 1.0;
+    self.maskSize += MAXIMUM_DIMENSION_LIMIT_INCREMENT;
     
     if(self.partialCompletionCallback) {
         self.partialCompletionCallback(((self.maskSize/self.maximumMaskSize)*100));
