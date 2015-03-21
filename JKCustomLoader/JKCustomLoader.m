@@ -11,7 +11,7 @@
 @interface JKCustomLoader ()
 @property (strong) UIView* viewToMask;
 @property (assign) CGFloat maskSize;
-@property (assign) NSInteger animationType;
+@property (assign) MaskShapeType animationType;
 @property (assign) CGFloat animationRate;
 @property (strong) NSTimer* imageMaskingOperationTimer;
 @property (assign) CGFloat maximumMaskSize;
@@ -20,7 +20,7 @@
 
 @implementation JKCustomLoader
 
--(instancetype)initWithInputView:(UIView*)inputView andNumberOfFramesPerSecond:(MaskShapeType)numberOfFrame andAnimationType:(NSInteger)animationType {
+-(instancetype)initWithInputView:(UIView*)inputView andNumberOfFramesPerSecond:(NSInteger)numberOfFrame andAnimationType:(MaskShapeType)animationType {
     if(self = [super init]) {
         self.viewToMask = inputView;
         self.animationRate = (CGFloat)(1.0/numberOfFrame);
@@ -43,7 +43,12 @@
 
 -(CAShapeLayer*)getShapeFromRect:(CGRect)rectPathForMask {
     CAShapeLayer* shape = [CAShapeLayer layer];
-    CGPathRef maskingPath = CGPathCreateWithEllipseInRect(rectPathForMask, nil);
+    CGPathRef maskingPath;
+    if(self.animationType == MaskShapeTypeCircle) {
+        maskingPath = CGPathCreateWithEllipseInRect(rectPathForMask, nil);
+    } else if(self.animationType == MaskShapeTypeRectangle){
+        maskingPath = CGPathCreateWithRect(rectPathForMask, nil);
+    }
     shape.path = maskingPath;
     CGPathRelease(maskingPath);
     return shape;
