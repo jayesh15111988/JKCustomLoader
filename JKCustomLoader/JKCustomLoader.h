@@ -17,13 +17,11 @@ typedef NS_ENUM(NSUInteger, MaskShapeType) {
 };
 
 @interface JKCustomLoader:UIView
--(instancetype)initWithInputView:(UIView*)inputView andNumberOfFramesPerSecond:(NSInteger)animationFrameRate andAnimationType:(MaskShapeType)animationType;
+-(instancetype)initWithInputView:(UIView*)inputView andAnimationType:(MaskShapeType)animationType;
 
 -(void)loadViewWithPartialCompletionBlock:(void (^)(CGFloat partialCompletionPercentage))partialCompletion andCompletionBlock:(void (^)())completion;
 
-typedef void (^PartialCompletionBlock)(CGFloat completionPercentage);
-@property (strong, nonatomic) PartialCompletionBlock partialCompletionCallback;
-
-typedef void (^CompletionBlock)();
-@property (strong, nonatomic) CompletionBlock completionCallback;
+@property (assign) CGFloat numberOfSidesForStar;
+@property (assign) CGFloat pointinessForStarCorners;
+@property (assign) CGFloat numberOfFramesPerSecond;
 @end

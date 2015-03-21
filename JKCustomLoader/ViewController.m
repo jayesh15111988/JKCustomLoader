@@ -18,7 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    JKCustomLoader* loader = [[JKCustomLoader alloc] initWithInputView:self.testImageView andNumberOfFramesPerSecond:60 andAnimationType:MaskShapeTypeTriangle];
+    JKCustomLoader* loader = [[JKCustomLoader alloc] initWithInputView:self.testImageView andAnimationType:MaskShapeTypeTriangle];
+    loader.numberOfSidesForStar = 6;
+    loader.pointinessForStarCorners = 10;
     [loader loadViewWithPartialCompletionBlock:^(CGFloat partialCompletionPercentage) {
         
     } andCompletionBlock:^{

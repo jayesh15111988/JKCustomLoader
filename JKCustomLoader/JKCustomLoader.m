@@ -7,40 +7,54 @@
 //
 
 #import "JKCustomLoader.h"
+#import "JKBezierStarDrawer.h"
 
 @interface JKCustomLoader ()
+
 @property (strong) UIView* viewToMask;
 @property (assign) CGFloat maskSize;
 @property (assign) MaskShapeType animationType;
-@property (assign) CGFloat animationRate;
 @property (strong) NSTimer* imageMaskingOperationTimer;
 @property (assign) CGFloat maximumMaskSize;
 @property (assign) CGFloat viewMidX;
 @property (assign) CGFloat viewMidY;
+@property (assign) CGFloat animationRate;
+
+typedef void (^PartialCompletionBlock)(CGFloat completionPercentage);
+@property (strong, nonatomic) PartialCompletionBlock partialCompletionCallback;
+
+typedef void (^CompletionBlock)();
+@property (strong, nonatomic) CompletionBlock completionCallback;
+
 @end
 
 
 @implementation JKCustomLoader
 
--(instancetype)initWithInputView:(UIView*)inputView andNumberOfFramesPerSecond:(NSInteger)numberOfFrame andAnimationType:(MaskShapeType)animationType {
+-(instancetype)initWithInputView:(UIView*)inputView andAnimationType:(MaskShapeType)animationType {
     if(self = [super init]) {
         self.viewToMask = inputView;
         self.viewMidX = self.viewToMask.frame.size.width/2;
         self.viewMidY = self.viewToMask.frame.size.height/2;
-        self.animationRate = (CGFloat)(1.0/numberOfFrame);
         self.animationType = animationType;
+        //Default values in case we want to draw a polygon
+        self.numberOfFramesPerSecond = 60.0;
+        self.numberOfSidesForStar = 5;
+        self.pointinessForStarCorners = 2;
     }
     return self;
 }
 
 -(void)loadViewWithPartialCompletionBlock:(void (^)(CGFloat partialCompletionPercentage))partialCompletion andCompletionBlock:(void (^)())completion {
 
+    self.animationRate = (CGFloat)(1.0/self.numberOfFramesPerSecond);
     self.partialCompletionCallback = partialCompletion;
     self.completionCallback = completion;
-    
+    CGFloat maximumViewDimension = MAX(self.viewToMask.frame.size.width, self.viewToMask.frame.size.height);
     if(self.animationType == MaskShapeTypeTriangle) {
-        CGFloat maximumViewDimension = MAX(self.viewToMask.frame.size.width, self.viewToMask.frame.size.height);
         self.maximumMaskSize = (maximumViewDimension/2) + maximumViewDimension * 0.866;
+    } else if(self.animationType == MaskShapeTypeStar) {
+        self.maximumMaskSize = [self calculateMaximumMaskDimension]*(3/2);
     } else {
         self.maximumMaskSize = [self calculateMaximumMaskDimension];
     }
@@ -54,7 +68,12 @@
 -(CAShapeLayer*)getShapeFromRect:(CGRect)rectPathForMask {
     CAShapeLayer* shape = [CAShapeLayer layer];
     CGPathRef maskingPath;
-    if(self.animationType == MaskShapeTypeCircle) {
+    if (self.animationType == MaskShapeTypeStar) {
+        JKBezierStarDrawer* bezierStarDrawer = [JKBezierStarDrawer new];
+        maskingPath = [bezierStarDrawer drawStarBezierWithX:self.viewMidX andY:self.viewMidY andRadius:rectPathForMask.size.height andSides:self.numberOfSidesForStar andPointiness:self.pointinessForStarCorners].CGPath;
+        shape.path = maskingPath;
+        return shape;
+    } else if(self.animationType == MaskShapeTypeCircle) {
         maskingPath = CGPathCreateWithEllipseInRect(rectPathForMask, nil);
     } else if(self.animationType == MaskShapeTypeRectangle){
         maskingPath = CGPathCreateWithRect(rectPathForMask, nil);

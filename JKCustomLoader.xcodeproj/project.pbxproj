@@ -17,6 +17,7 @@
 		38D493061ABD20DC004A9B17 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D493051ABD20DC004A9B17 /* ViewController.m */; };
 		38D493081ABD2802004A9B17 /* rf.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 38D493071ABD2802004A9B17 /* rf.jpg */; };
 		38D4930A1ABD2B6B004A9B17 /* donald.png in Resources */ = {isa = PBXBuildFile; fileRef = 38D493091ABD2B6B004A9B17 /* donald.png */; };
+		38D4930D1ABDF247004A9B17 /* JKBezierStarDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 38D4930C1ABDF247004A9B17 /* JKBezierStarDrawer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,8 @@
 		38D493051ABD20DC004A9B17 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		38D493071ABD2802004A9B17 /* rf.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = rf.jpg; sourceTree = "<group>"; };
 		38D493091ABD2B6B004A9B17 /* donald.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = donald.png; sourceTree = "<group>"; };
+		38D4930B1ABDF247004A9B17 /* JKBezierStarDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKBezierStarDrawer.h; sourceTree = "<group>"; };
+		38D4930C1ABDF247004A9B17 /* JKBezierStarDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKBezierStarDrawer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +103,8 @@
 				38D493021ABD20CD004A9B17 /* JKCustomLoader.m */,
 				38D493041ABD20DC004A9B17 /* ViewController.h */,
 				38D493051ABD20DC004A9B17 /* ViewController.m */,
+				38D4930B1ABDF247004A9B17 /* JKBezierStarDrawer.h */,
+				38D4930C1ABDF247004A9B17 /* JKBezierStarDrawer.m */,
 			);
 			path = JKCustomLoader;
 			sourceTree = "<group>";
@@ -233,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				38D492E11ABD2074004A9B17 /* AppDelegate.m in Sources */,
+				38D4930D1ABDF247004A9B17 /* JKBezierStarDrawer.m in Sources */,
 				38D492DE1ABD2074004A9B17 /* main.m in Sources */,
 				38D493061ABD20DC004A9B17 /* ViewController.m in Sources */,
 				38D493031ABD20CD004A9B17 /* JKCustomLoader.m in Sources */,
