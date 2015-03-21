@@ -20,7 +20,7 @@
 
 @implementation JKCustomLoader
 
--(instancetype)initWithInputView:(UIView*)inputView andNumberOfFramesPerSecond:(NSInteger)numberOfFrame andAnimationType:(NSInteger)animationType {
+-(instancetype)initWithInputView:(UIView*)inputView andNumberOfFramesPerSecond:(MaskShapeType)numberOfFrame andAnimationType:(NSInteger)animationType {
     if(self = [super init]) {
         self.viewToMask = inputView;
         self.animationRate = (CGFloat)(1.0/numberOfFrame);
