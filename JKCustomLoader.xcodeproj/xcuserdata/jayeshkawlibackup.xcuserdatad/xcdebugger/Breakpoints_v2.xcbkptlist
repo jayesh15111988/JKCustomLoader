@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JKCustomLoader/JKCustomLoader.m"
-            timestampString = "448676016.291143"
+            timestampString = "448733536.074581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
-            landmarkName = "@implementation JKCustomLoader"
-            landmarkType = "3">
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "-calculateMaximumMaskDimension"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JKCustomLoader/JKCustomLoader.m"
-            timestampString = "448676016.291143"
+            timestampString = "448733536.074581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "-loadViewWithPartialCompletionBlock:andCompletionBlock:"
             landmarkType = "5">
          </BreakpointContent>

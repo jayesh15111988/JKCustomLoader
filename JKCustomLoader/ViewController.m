@@ -28,8 +28,9 @@
         self.animationCompleteLabel.text = @"Working on Animation......";
         JKCustomLoader* loader = [[JKCustomLoader alloc] initWithInputView:self.testImageView andAnimationType:self.selectedMaskShapeType];
         loader.maskImage = [UIImage imageNamed:@"donald.png"];
-        loader.numberOfVerticesForPolygon = 5;
+        loader.numberOfVerticesForPolygon = 6;
         loader.pointinessForStarCorners = 2;
+        loader.maskSizeIncrementPerFrame = 3;
         [loader loadViewWithPartialCompletionBlock:^(CGFloat partialCompletionPercentage) {
             NSLog(@"Percentage Completed %f", partialCompletionPercentage);
         } andCompletionBlock:^{

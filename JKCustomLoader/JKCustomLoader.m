@@ -9,8 +9,6 @@
 #import "JKCustomLoader.h"
 #import "JKBezierStarDrawer.h"
 
-#define MAXIMUM_DIMENSION_LIMIT_INCREMENT 3
-
 @interface JKCustomLoader ()
 
 @property (strong) UIView* viewToMask;
@@ -39,9 +37,10 @@ typedef void (^CompletionBlock)();
         self.viewMidY = self.viewToMask.frame.size.height/2;
         self.animationType = animationType;
         //Default values in case we want to draw a polygon
-        self.numberOfFramesPerSecond = 2.0;
-        self.numberOfVerticesForPolygon = 5;
+        self.numberOfFramesPerSecond = 60.0;
+        self.numberOfVerticesForPolygon = 6;
         self.pointinessForStarCorners = 2;
+        self.maskSizeIncrementPerFrame = 3;
     }
     return self;
 }
@@ -57,7 +56,7 @@ typedef void (^CompletionBlock)();
     } else if(self.animationType == MaskShapeTypeStar) {
         self.maximumMaskSize = maximumViewDimension * 0.5;
     } else if(self.animationType == MaskShapeTypeAlphaImage) {
-        self.maximumMaskSize = MAXIMUM_DIMENSION_LIMIT_INCREMENT * maximumViewDimension;
+        self.maximumMaskSize = self.maskSizeIncrementPerFrame * maximumViewDimension;
         NSAssert(self.maskImage, @"Masking image cannot be nil when MaskShapeTypeAlphaImage animation mode is selected");
     } else if(self.animationType == MaskShapeTypeCircle) {
         self.maximumMaskSize = [self calculateMaximumMaskDimension];
@@ -69,6 +68,7 @@ typedef void (^CompletionBlock)();
     self.viewToMask.layer.mask = [self getShapeFromRect:CGRectMake((self.viewToMask.frame.size.width - self.maskSize)/2, (self.viewToMask.frame.size.height - self.maskSize)/2, self.maskSize, self.maskSize)];
     self.imageMaskingOperationTimer = [NSTimer timerWithTimeInterval:self.animationRate target:self selector:@selector(updateImageMaskSize) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:self.imageMaskingOperationTimer forMode:NSDefaultRunLoopMode];
+
 }
 
 -(CAShapeLayer*)getShapeFromRect:(CGRect)rectPathForMask {
@@ -112,7 +112,7 @@ typedef void (^CompletionBlock)();
 -(void)updateImageMaskSize {
     
     self.viewToMask.layer.mask = [self getShapeFromRect:CGRectMake((self.viewToMask.frame.size.width - self.maskSize)/2, (self.viewToMask.frame.size.height - self.maskSize)/2, self.maskSize, self.maskSize)];
-    self.maskSize += MAXIMUM_DIMENSION_LIMIT_INCREMENT;
+    self.maskSize += self.maskSizeIncrementPerFrame;
     
     if(self.partialCompletionCallback) {
         self.partialCompletionCallback(((self.maskSize/self.maximumMaskSize)*100));
