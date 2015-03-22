@@ -24,7 +24,7 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WM1-BZ-NhB">
-                                <rect key="frame" x="0.0" y="60" width="320" height="110"/>
+                                <rect key="frame" x="0.0" y="50" width="320" height="110"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWe-kU-eEO">
                                         <rect key="frame" x="15" y="5" width="130" height="30"/>
@@ -137,19 +137,32 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EFu-rl-rJT">
+                                <rect key="frame" x="20" y="165" width="280" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="C70-Zk-30b"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="fft-jf-jcl" secondAttribute="trailing" constant="-6" id="8WT-dO-f7B"/>
+                            <constraint firstItem="fft-jf-jcl" firstAttribute="top" secondItem="EFu-rl-rJT" secondAttribute="bottom" constant="5" id="Fzm-rk-PCK"/>
+                            <constraint firstItem="WM1-BZ-NhB" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="NqH-CH-iLW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="WM1-BZ-NhB" secondAttribute="trailing" constant="-16" id="Ruw-BH-it1"/>
                             <constraint firstItem="fft-jf-jcl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="STi-ES-jhz"/>
-                            <constraint firstItem="fft-jf-jcl" firstAttribute="top" secondItem="WM1-BZ-NhB" secondAttribute="bottom" constant="30" id="W6Z-Od-Lad"/>
+                            <constraint firstItem="EFu-rl-rJT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="hRP-ze-wkb"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fft-jf-jcl" secondAttribute="bottom" constant="23" id="l2M-OC-oEM"/>
                             <constraint firstItem="WM1-BZ-NhB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="oYL-RS-84f"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="EFu-rl-rJT" secondAttribute="trailing" constant="4" id="ppt-oh-jvd"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="animationCompleteLabel" destination="EFu-rl-rJT" id="hro-MP-rJc"/>
                         <outlet property="testImageView" destination="fft-jf-jcl" id="NZC-i2-FKX"/>
                     </connections>
                 </viewController>
