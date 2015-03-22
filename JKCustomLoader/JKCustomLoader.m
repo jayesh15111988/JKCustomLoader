@@ -39,8 +39,8 @@ typedef void (^CompletionBlock)();
         self.viewMidY = self.viewToMask.frame.size.height/2;
         self.animationType = animationType;
         //Default values in case we want to draw a polygon
-        self.numberOfFramesPerSecond = 60.0;
-        self.numberOfSidesForStar = 5;
+        self.numberOfFramesPerSecond = 2.0;
+        self.numberOfVerticesForPolygon = 5;
         self.pointinessForStarCorners = 2;
     }
     return self;
@@ -55,7 +55,7 @@ typedef void (^CompletionBlock)();
     if(self.animationType == MaskShapeTypeTriangle) {
         self.maximumMaskSize = (maximumViewDimension/2) + maximumViewDimension * 0.866;
     } else if(self.animationType == MaskShapeTypeStar) {
-        self.maximumMaskSize = maximumViewDimension * 1.5;
+        self.maximumMaskSize = maximumViewDimension * 0.5;
     } else if(self.animationType == MaskShapeTypeAlphaImage) {
         self.maximumMaskSize = MAXIMUM_DIMENSION_LIMIT_INCREMENT * maximumViewDimension;
         NSAssert(self.maskImage, @"Masking image cannot be nil when MaskShapeTypeAlphaImage animation mode is selected");
@@ -76,7 +76,7 @@ typedef void (^CompletionBlock)();
     CGPathRef maskingPath;
     if (self.animationType == MaskShapeTypeStar) {
         JKBezierStarDrawer* bezierStarDrawer = [JKBezierStarDrawer new];
-        maskingPath = [bezierStarDrawer drawStarBezierWithX:self.viewMidX andY:self.viewMidY andRadius:rectPathForMask.size.height andSides:self.numberOfSidesForStar andPointiness:self.pointinessForStarCorners].CGPath;
+        maskingPath = [bezierStarDrawer drawStarBezierWithX:self.viewMidX andY:self.viewMidY andRadius:rectPathForMask.size.height andSides:self.numberOfVerticesForPolygon andPointiness:self.pointinessForStarCorners].CGPath;
         shape.path = maskingPath;
         return shape;
     } else if(self.animationType == MaskShapeTypeCircle) {
