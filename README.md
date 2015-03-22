@@ -29,6 +29,10 @@ Besides it, default values of parameters used in this library are as follows :
  - pointiness Index for polygon shape - 2
  - Frame rate - 60
 
+ **Update**
+
+ - maskSizeIncrementPerFrame - Mask will evolve in terms of size over time. This parameter will specify the rate of increase of mask per frame. For example, if frame rate is f FPS and maskSizeIncrementParameter is n, mask size will increase by n*f pixels per second (Default value : 2)
+
 Example : Say you have view _testImageView_ thatyou wish to animate.
 Simple create an instance of JKCustomLoader with specified view and animation type chosen from types specified above. For simility's sake, let's create one with circulat animation.
 
