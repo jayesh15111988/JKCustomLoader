@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, MaskShapeType) {
     MaskShapeTypeAlphaImage
 };
 
-@interface JKCustomLoader:UIView
+@interface JKCustomLoader:NSObject
 -(instancetype)initWithInputView:(UIView*)inputView andAnimationType:(MaskShapeType)animationType;
 
 -(void)loadViewWithPartialCompletionBlock:(void (^)(CGFloat partialCompletionPercentage))partialCompletion andCompletionBlock:(void (^)())completion;

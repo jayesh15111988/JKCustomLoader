@@ -30,7 +30,6 @@ typedef void (^CompletionBlock)();
 
 @end
 
-
 @implementation JKCustomLoader
 
 -(instancetype)initWithInputView:(UIView*)inputView andAnimationType:(MaskShapeType)animationType {
@@ -56,7 +55,7 @@ typedef void (^CompletionBlock)();
     if(self.animationType == MaskShapeTypeTriangle) {
         self.maximumMaskSize = (maximumViewDimension/2) + maximumViewDimension * 0.866;
     } else if(self.animationType == MaskShapeTypeStar) {
-        self.maximumMaskSize = [self calculateMaximumMaskDimension]*(3/2);
+        self.maximumMaskSize = maximumViewDimension * 1.5;
     } else if(self.animationType == MaskShapeTypeAlphaImage) {
         self.maximumMaskSize = MAXIMUM_DIMENSION_LIMIT_INCREMENT * maximumViewDimension;
         NSAssert(self.maskImage, @"Masking image cannot be nil when MaskShapeTypeAlphaImage animation mode is selected");
