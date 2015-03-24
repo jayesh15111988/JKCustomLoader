@@ -25,13 +25,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JKCustomLoader/JKCustomLoader.m"
-            timestampString = "448733536.074581"
+            filePath = "JKCustomLoader/ViewController.m"
+            timestampString = "448754954.398275"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "-loadViewWithPartialCompletionBlock:andCompletionBlock:"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "-loadRectangleAnimation:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JKCustomLoader/ViewController.m"
+            timestampString = "448754955.135539"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "-loadRectangleAnimation:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JKCustomLoader/ViewController.m"
+            timestampString = "448754957.531724"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "-loadImageWithSelectedMask"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
