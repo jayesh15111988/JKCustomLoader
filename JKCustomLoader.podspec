@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/jayesh15111988/JKCustomLoader/"
   s.license          = 'MIT'
   s.author           = { "Jayesh Kawli" => "j.kawli@gmail.com" }
-  s.source           = { :git => "https://github.com/jayesh15111988/JKCustomLoader.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/jayesh15111988/JKCustomLoader.git", :branch => 'master' }
   s.social_media_url = 'https://twitter.com/JayeshKawli'
 
   s.platform     = :ios, '7.0'
