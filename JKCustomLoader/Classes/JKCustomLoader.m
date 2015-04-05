@@ -56,7 +56,7 @@ typedef void (^CompletionBlock)();
     } else if(self.animationType == MaskShapeTypeStar) {
         self.maximumMaskSize = maximumViewDimension * 0.5;
     } else if(self.animationType == MaskShapeTypeAlphaImage) {
-        self.maximumMaskSize = self.maskSizeIncrementPerFrame * maximumViewDimension;
+        self.maximumMaskSize = self.maskSizeIncrementPerFrame * (maximumViewDimension/2);
         NSAssert(self.maskImage, @"Masking image cannot be nil when MaskShapeTypeAlphaImage animation mode is selected");
     } else if(self.animationType == MaskShapeTypeCircle) {
         self.maximumMaskSize = [self calculateMaximumMaskDimension];
