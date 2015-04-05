@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "JKCustomLoader"
-  s.version          = "v1.0"
+  s.version          = "1.0"
   s.summary          = "A collection of iOS Custom loaders implemented using mask layers"
   s.description      = <<-DESC
                        This is custom loaded library based on the reference from book 'iOS Core Animation: Advanced Techniques' by 'Nick Lockwood'. All animations are based on the mask property of CALayer object. Mask is initially set to zero and then incremented to increase visible portion of the underlying layer.
