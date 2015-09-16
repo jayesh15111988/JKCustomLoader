@@ -19,12 +19,12 @@ typedef NS_ENUM(NSUInteger, MaskShapeType) {
 @interface JKCustomLoader:NSObject
 
 -(instancetype)initWithInputView:(UIView*)inputView andAnimationType:(MaskShapeType)animationType;
--(void)loadViewWithPartialCompletionBlock:(void (^)(CGFloat partialCompletionPercentage))partialCompletion andCompletionBlock:(void (^)())completion;
+-(void)loadViewWithCompletionBlock:(void (^)())animationCompletion;
 
-@property (strong) UIImage* maskImage;
-@property (assign) CGFloat numberOfVerticesForPolygon;
-@property (assign) CGFloat pointinessForStarCorners;
-@property (assign) CGFloat numberOfFramesPerSecond;
-@property (assign) CGFloat maskSizeIncrementPerFrame;
+@property (nonatomic, strong) UIImage* maskImage;
+@property (nonatomic, assign) CGFloat numberOfVerticesForPolygon;
+@property (nonatomic, assign) CGFloat pointinessForStarCorners;
+@property (nonatomic, assign) CGFloat animationDuration;
+@property (nonatomic, assign) CGFloat initialMaskSize;
 
 @end
