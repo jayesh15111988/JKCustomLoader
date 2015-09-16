@@ -69,13 +69,13 @@ typedef void (^CustomLoadingAnimationCompleted)();
 	CGFloat maximumMaskSize = self.maximumMaskSize;
 	CAKeyframeAnimation* keyFrameAnimation = [CAKeyframeAnimation animationWithKeyPath:@"bounds"];
 	keyFrameAnimation.delegate = self;
-	keyFrameAnimation.duration = 5.0;
+	keyFrameAnimation.duration = 1.0;
 	NSValue* initalBounds = [NSValue valueWithCGRect:self.viewMask.bounds];
-	NSValue* secondBounds = [NSValue valueWithCGRect:CGRectMake (0, 0, 85, 65)];
+	NSValue* secondBounds = [NSValue valueWithCGRect:CGRectMake (0, 0, self.viewMask.bounds.size.width/2.0, self.viewMask.bounds.size.height/2.0)];
 	NSValue* finalBounds = [NSValue valueWithCGRect:CGRectMake (0, 0, maximumMaskSize, maximumMaskSize)];
 	keyFrameAnimation.values = @[ initalBounds, secondBounds, finalBounds ];
 	keyFrameAnimation.beginTime = CACurrentMediaTime () + 0.5;
-	keyFrameAnimation.keyTimes = @[ @0, @0.2, @1 ];
+	keyFrameAnimation.keyTimes = @[ @0, @0.3, @1 ];
 	keyFrameAnimation.removedOnCompletion = NO;
 	keyFrameAnimation.fillMode = kCAFillModeForwards;
 	keyFrameAnimation.timingFunctions = @[
