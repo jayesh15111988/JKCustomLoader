@@ -25,6 +25,5 @@ typedef NS_ENUM(NSUInteger, MaskShapeType) {
 @property (nonatomic, assign) CGFloat numberOfVerticesForPolygon;
 @property (nonatomic, assign) CGFloat pointinessForStarCorners;
 @property (nonatomic, assign) CGFloat animationDuration;
-@property (nonatomic, assign) CGFloat initialMaskSize;
 
 @end

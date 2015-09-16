@@ -34,7 +34,7 @@
 		[loader loadViewWithCompletionBlock:^{
 		  self.animationCompleteLabel.text = @"Complete";
 		  self.isAnimationComplete = YES;
-		  NSLog (@"Image Loading Completed");
+		  NSLog (@"View Loading Completed");
 		}];
 	}
 }

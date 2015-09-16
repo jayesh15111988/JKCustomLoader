@@ -18,6 +18,12 @@
 @property (nonatomic, assign) CGFloat viewMidY;
 @property (nonatomic, assign) CGFloat animationRate;
 @property (nonatomic, strong) CALayer* viewMask;
+@property (nonatomic, assign) CGFloat maskSize;
+@property (nonatomic, assign) CGFloat maskSizeIncrementPerFrame;
+@property (strong, nonatomic) NSTimer* imageMaskingOperationTimer;
+@property (strong, nonatomic) NSDate* methodStart;
+@property (strong, nonatomic) NSDate* methodFinish;
+@property (nonatomic, assign) CGFloat initialMaskSize;
 
 typedef void (^CustomLoadingAnimationCompleted)();
 @property (nonatomic, copy) CustomLoadingAnimationCompleted customLoadingAnimationCompletedBlock;
@@ -29,7 +35,7 @@ typedef void (^CustomLoadingAnimationCompleted)();
 - (instancetype)initWithInputView:(UIView*)inputView andAnimationType:(MaskShapeType)animationType {
 	if (self = [super init]) {
 		_viewToMask = inputView;
-		_initialMaskSize = 50;
+		_initialMaskSize = 25.0;
 		_viewMidX = self.viewToMask.frame.size.width / 2;
 		_viewMidY = self.viewToMask.frame.size.height / 2;
 		_animationType = animationType;
@@ -37,6 +43,7 @@ typedef void (^CustomLoadingAnimationCompleted)();
 		_numberOfVerticesForPolygon = 6;
 		_pointinessForStarCorners = 2;
 		_animationDuration = 1.0;
+		_maskSize = 0.0;
 	}
 	return self;
 }
@@ -57,21 +64,63 @@ typedef void (^CustomLoadingAnimationCompleted)();
 	} else if (self.animationType == MaskShapeTypeRectangle) {
 		self.maximumMaskSize = maximumViewDimension;
 	}
-	_viewMask.anchorPoint = CGPointMake (0.5, 0.5);
-	_viewMask.position = CGPointMake (_viewMidX, _viewMidY);
-	_viewMask.bounds = CGRectMake (0, 0, 100, 100);
-	_viewMask = [self getShapeFromRect:CGRectMake (0, 0, _initialMaskSize, _initialMaskSize)];
-	_viewToMask.layer.mask = _viewMask;
-	[self animateMask];
+
+	if (self.animationType == MaskShapeTypeAlphaImage) {
+		_viewMask =
+		    [self getShapeForImageAnimationFromRect:CGRectMake (0, 0, _initialMaskSize, _initialMaskSize)];
+		_viewToMask.layer.mask = _viewMask;
+		[self animateMask];
+	} else {
+		_maskSize = 25.0;
+		_maskSizeIncrementPerFrame = (self.maximumMaskSize / _animationDuration) * (0.0167);
+		_viewMask = [self getShapeFromRect:CGRectMake ((self.viewToMask.frame.size.width - self.maskSize) / 2,
+							       (self.viewToMask.frame.size.height - self.maskSize) / 2,
+							       self.maskSize, self.maskSize)];
+		_viewToMask.layer.mask = _viewMask;
+        
+        int64_t delayInSeconds = 0.5;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            self.imageMaskingOperationTimer = [NSTimer timerWithTimeInterval:0.0167
+                                                                      target:self
+                                                                    selector:@selector (updateImageMaskSize)
+                                                                    userInfo:nil
+                                                                     repeats:YES];
+            self.methodStart = [NSDate date];
+            [[NSRunLoop mainRunLoop] addTimer:self.imageMaskingOperationTimer forMode:NSDefaultRunLoopMode];
+        });
+	}
+}
+
+- (void)updateImageMaskSize {
+
+	self.viewToMask.layer.mask =
+	    [self getShapeFromRect:CGRectMake ((self.viewToMask.frame.size.width - self.maskSize) / 2,
+					       (self.viewToMask.frame.size.height - self.maskSize) / 2, self.maskSize,
+					       self.maskSize)];
+	self.maskSize += self.maskSizeIncrementPerFrame;
+
+	if (self.maskSize >= self.maximumMaskSize) {
+		[self.imageMaskingOperationTimer invalidate];
+		self.imageMaskingOperationTimer = nil;
+		self.viewToMask.layer.mask = nil;
+		self.methodFinish = [NSDate date];
+		NSTimeInterval executionTime = [self.methodFinish timeIntervalSinceDate:self.methodStart];
+		NSLog (@"executionTime = %f", executionTime);
+		if (self.customLoadingAnimationCompletedBlock) {
+			self.customLoadingAnimationCompletedBlock ();
+		}
+	}
 }
 
 - (void)animateMask {
 	CGFloat maximumMaskSize = self.maximumMaskSize;
 	CAKeyframeAnimation* keyFrameAnimation = [CAKeyframeAnimation animationWithKeyPath:@"bounds"];
 	keyFrameAnimation.delegate = self;
-	keyFrameAnimation.duration = 1.0;
+	keyFrameAnimation.duration = _animationDuration;
 	NSValue* initalBounds = [NSValue valueWithCGRect:self.viewMask.bounds];
-	NSValue* secondBounds = [NSValue valueWithCGRect:CGRectMake (0, 0, self.viewMask.bounds.size.width/2.0, self.viewMask.bounds.size.height/2.0)];
+	NSValue* secondBounds = [NSValue valueWithCGRect:CGRectMake (0, 0, self.viewMask.bounds.size.width / 2.0,
+								     self.viewMask.bounds.size.height / 2.0)];
 	NSValue* finalBounds = [NSValue valueWithCGRect:CGRectMake (0, 0, maximumMaskSize, maximumMaskSize)];
 	keyFrameAnimation.values = @[ initalBounds, secondBounds, finalBounds ];
 	keyFrameAnimation.beginTime = CACurrentMediaTime () + 0.5;
@@ -105,22 +154,24 @@ typedef void (^CustomLoadingAnimationCompleted)();
 						      andPointiness:self.pointinessForStarCorners]
 				  .CGPath;
 		shape.path = maskingPath;
+		return shape;
 	} else if (self.animationType == MaskShapeTypeCircle) {
 		maskingPath = CGPathCreateWithEllipseInRect (rectPathForMask, nil);
-		shape.path = maskingPath;
 	} else if (self.animationType == MaskShapeTypeRectangle) {
 		maskingPath = CGPathCreateWithRect (rectPathForMask, nil);
-		shape.path = maskingPath;
 	} else if (self.animationType == MaskShapeTypeTriangle) {
 		maskingPath = [self getTriangleShapeWithSize:rectPathForMask.size.height];
-		shape.path = maskingPath;
-	} else if (self.animationType == MaskShapeTypeAlphaImage) {
-		shape = [self getCustomMaskLayerFromRect:rectPathForMask];
 	}
+	shape.path = maskingPath;
+	CGPathRelease (maskingPath);
+	return shape;
+}
+
+- (CAShapeLayer*)getShapeForImageAnimationFromRect:(CGRect)rectPathForMask {
+	CAShapeLayer* shape = [self getCustomMaskLayerFromRect:rectPathForMask];
 	shape.anchorPoint = CGPointMake (0.5, 0.5);
 	shape.position = CGPointMake (self.viewToMask.frame.size.width / 2, self.viewToMask.frame.size.height / 2);
 	shape.bounds = CGRectMake (0, 0, _initialMaskSize, _initialMaskSize);
-	CGPathRelease (maskingPath);
 	return shape;
 }
 
