@@ -48,7 +48,7 @@ typedef void (^CustomLoadingAnimationCompleted)();
 		// Default values in case we want to draw a polygon
 		_numberOfVerticesForPolygon = 6;
 		_animationDuration = 1.0;
-		_maskSize = 0.0;
+		_maskSize = 40.0;
 		_animationBeginDelay = 0.5;
 	}
 	return self;
@@ -70,7 +70,6 @@ typedef void (^CustomLoadingAnimationCompleted)();
 	} else if (self.animationType == MaskShapeTypeRectangle) {
 		self.maximumMaskSize = maximumViewDimension;
 	}
-	_maskSize = 40.0;
 	_minimumAnimationMaskSize = _maskSize / 2.0;
 	_maskSizeIncrementPerFrame = ((self.maximumMaskSize) / _animationDuration) * (0.0167);
 	if (self.animationType == MaskShapeTypeAlphaImage) {

@@ -30,13 +30,15 @@
 								  andAnimationType:self.selectedMaskShapeType];
 		loader.maskImage = [UIImage imageNamed:@"donald.png"];
 		loader.numberOfVerticesForPolygon = 6;
-		loader.pointinessForStarCorners = 2;
 		[loader loadViewWithCompletionBlock:^{
 		  self.animationCompleteLabel.text = @"Complete";
 		  self.isAnimationComplete = YES;
-		  NSLog (@"View Loading Completed");
+		  NSLog (@"View Mask Loading Finished");
 		}];
-	}
+    } else {
+        UIAlertView* animationInProgressAlert = [[UIAlertView alloc] initWithTitle:@"Custom Animation" message:@"Please wait until last animation completed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [animationInProgressAlert show];
+    }
 }
 
 - (IBAction)loadRectangleAnimation:(id)sender {
