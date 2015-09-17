@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, MaskShapeType) {
 
 @property (nonatomic, strong) UIImage* maskImage;
 @property (nonatomic, assign) CGFloat numberOfVerticesForPolygon;
-@property (nonatomic, assign) CGFloat pointinessForStarCorners;
 @property (nonatomic, assign) CGFloat animationDuration;
+@property (nonatomic, assign) NSTimeInterval animationBeginDelay;
 
 @end
