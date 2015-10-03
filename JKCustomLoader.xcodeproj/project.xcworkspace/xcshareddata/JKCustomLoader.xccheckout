@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>8BB8C689-2DA3-4C2F-8A55-BC58588A5712</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>JKCustomLoader</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>0BCB0359FE761A8D7D7542673E4AAD45F20BC286</key>
 		<string>github.com:jayesh15111988/JKCustomLoader.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>JKCustomLoader.xcodeproj/project.xcworkspace</string>
+	<string>JKCustomLoader.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>0BCB0359FE761A8D7D7542673E4AAD45F20BC286</key>
